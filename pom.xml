@@ -1,48 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.target>1.8</maven.compiler.target>
-		<maven.compiler.source>1.8</maven.compiler.source>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
 
-		<spring.boot.version>2.4.1</spring.boot.version>
-		<plugin.jib.version>2.7.0</plugin.jib.version>
-		<docker.image.name>myimagename</docker.image.name>
-	</properties>
+        <spring.boot.version>2.4.1</spring.boot.version>
+        <plugin.jib.version>2.7.0</plugin.jib.version>
+        <docker.image.name>myimagename</docker.image.name>
+    </properties>
 
-	<groupId>com.pim</groupId>
-	<artifactId>spring-boot-maven-jib-example</artifactId>
-	<version>0.9</version>
+    <groupId>com.pim</groupId>
+    <artifactId>spring-boot-maven-jib-example</artifactId>
+    <version>0.9</version>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
-			<version>${spring.boot.version}</version>
-		</dependency>
-	</dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <version>${spring.boot.version}</version>
+        </dependency>
+    </dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<!-- This plugin will create a docker image for a locally running docker daemon, when you execute 'mvn compile jib:dockerBuild'. -->
-				<groupId>com.google.cloud.tools</groupId>
-				<artifactId>jib-maven-plugin</artifactId>
-				<version>${plugin.jib.version}</version>
-				<configuration>
-					<from>
-						<!-- This is a base image, that will run on a Raspberry Pi. You may want a different one, see https://hub.docker.com/search?q=openjdk&type=image -->
-						<image>arm32v7/openjdk:8-jre-alpine@sha256:660ed523d88438cb3526ddd7335437e0e856807e3668d20f8e5442290cb21fe4</image>
-					</from>
-					<to>
-						<image>${docker.image.name}</image>
-					</to>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+    <build>
+        <plugins>
+            <plugin>
+                <!-- This plugin will create a docker image for a locally running docker daemon, when you execute 'mvn compile jib:dockerBuild'. -->
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>${plugin.jib.version}</version>
+                <configuration>
+                    <from>
+                        <!-- This is a base image, that will run on a Raspberry Pi. You may want a different one, see https://hub.docker.com/search?q=openjdk&type=image -->
+                        <image>arm32v7/openjdk:8-jre-alpine@sha256:660ed523d88438cb3526ddd7335437e0e856807e3668d20f8e5442290cb21fe4</image>
+                    </from>
+                    <to>
+                        <image>${docker.image.name}</image>
+                    </to>
+                </configuration>
+            </plugin>
 
+            <!-- Add the spring-boot-maven-plugin for creating an executable JAR -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring.boot.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
