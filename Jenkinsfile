@@ -12,7 +12,7 @@ pipeline {
 		
           stage('Deploy on Application Machine') {
 	      steps {
-		  sh "nohup java -jar /target/spring-boot-maven-jib-example.jar  &"
+		  sh "nohup java -jar target/spring-boot-maven-jib-example-0.9.jar &"
 		}
 	}		
     }
