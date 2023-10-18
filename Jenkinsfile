@@ -16,8 +16,8 @@ pipeline {
 					#withCredentials([sshUserPrivateKey(credentialsId: 'your-credentials-id', keyFileVariable: 'KEY')]) {
 						#sh "scp -i $KEY /target/spring-boot-maven-jib-example.jar user@your-deployment-machine:/path/to/destination"
 						#sh "ssh -i $KEY user@your-application-machine 'nohup java -jar /path/to/your-service.jar &'"
-						#sh "nohup java -jar /target/spring-boot-maven-jib-example.jar  &"
-					}
+						sh "nohup java -jar /target/spring-boot-maven-jib-example.jar  &"
+					#}
 				}
 			}
 		}
